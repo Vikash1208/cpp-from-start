@@ -1,0 +1,57 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int partition(int arr[],int l,int h){
+
+	int pivot = arr[h];
+	int i=l-1;
+	for(int j=l;j<=h-1;j++){
+		if(arr[j]<pivot){
+			i++;
+			swap(arr[i],arr[j]);
+		}
+	}
+	swap(arr[i+1],arr[h]);
+	return i+1;
+}
+
+
+void quickSort(int arr[],int l,int h){
+
+	if(l<h){
+		int p=partition(arr,l,h);
+		quickSort(arr,l,p-1);
+		quickSort(arr,p+1,h);
+	}
+}
+
+int main(){
+
+	int n;
+	cin>>n;
+
+	int arr[n];
+	for(int i=0;i<n;i++){
+		cin>>arr[i];
+	}
+
+	quickSort(arr,0,n-1);
+	for(auto x:arr){
+		cout<<x<<" ";
+	}
+}
+
+// 10 80 30 90 40 50 70 ,pivot = 70, l=0,h=6,i= 0-1=-1
+//   arr[j=l=0]< pivot
+//   10 <70 i++ ,i=0,swap(arr[i=0],arr[j=0])
+//   10 80 30 90 40 50 70
+
+
+// j=1,i=0
+// arr[1]<p  80 <70  not
+
+// j=2,i=0
+// arr[2]<70   yes
+// i=1   swap(arr[1],arr[2])
+// 10 30 80 
+
